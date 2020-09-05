@@ -1,4 +1,5 @@
 search_tweets_v2:
+  account_type: basic
   endpoint:  https://api.twitter.com/2/tweets/search/recent
   consumer_key: OLcLHYFi7tbr48XhV7TdLMju1
   consumer_secret: XX6FoV9l0LO7HuxtbdF7b6PRfUQwKnSZ6blJwsbYeqVLYAcMcA
