@@ -1,0 +1,8 @@
+consumer_key: OLcLHYFi7tbr48XhV7TdLMju1
+consumer_secret: XX6FoV9l0LO7HuxtbdF7b6PRfUQwKnSZ6blJwsbYeqVLYAcMcA
+#mongo_client_location: mongodb://localhost:27017/
+mongo_client_location: mongodb://localhost:27017/
+mongo_db: twitter_db
+mongo_collection: tweets
+#Amsterdam geo location, 10km radius
+geo_location: 52.379189,4.899431,10km

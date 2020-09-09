@@ -1,21 +1,31 @@
 import pymongo
+import yaml
+from datetime import datetime, timedelta
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+config = yaml.safe_load(open("./config.yaml"))
+myclient = pymongo.MongoClient(config["mongo_client_location"])
+mydb = myclient[config["mongo_db"]]
+mycol = mydb[config["mongo_collection"]]
 
-mydb = myclient["twitter_db"]
-
-mycol = mydb["tweets_new_hour"]
-
-mydict = { "name": "John", "address": "Highway 37" }
+def insert_ingestion_data():
+    mycol.insert({"type":"info","reference_datetime":datetime.utcnow()})
 
 def insert_tweets(tweets):
     mycol.insert_many(tweets)
 
-pipeline = [
-    { "$unwind": "$hashtags" },
-    { "$sortByCount": "$hashtags.text" }
-    #{ "$group": { "_id": "$entities.hashtags.tag", "TotalFrequency": { "$sum" : 1 } } }
-]
+def get_reference_date():
+    return mycol.find_one({"type":"info"})["reference_datetime"]
 
-agg = list(mycol.aggregate(pipeline))
-print(agg)
+def getTrends(amount_trends=5,last_x_hours=1):
+    reference = get_reference_date()
+    since = reference - timedelta(hours=last_x_hours)
+    pipeline = [
+        { "$match":{"date": { "$gt": since }} },
+        { "$unwind": "$hashtags" },
+        { "$sortByCount": "$hashtags.text" }
+    ]
+    agg = list(mycol.aggregate(pipeline))[:amount_trends]
+    date_format = "%m/%d/%Y, %H:%M:%S"
+    return {"since":since.strftime(date_format),"until":reference.strftime(date_format),"trends":agg}
+
+#getTrends(10,72)
