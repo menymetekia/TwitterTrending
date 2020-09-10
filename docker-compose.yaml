@@ -1,9 +1,20 @@
 version: '3'
 services:
-  app:
-    build: .
+  ingestion:
+    build: 
+      context: .
+      dockerfile: ./ingestion/Dockerfile
     volumes:
-      - appdata:/usr/src/app
+      - twitterdata:/usr/src/app
+  trends_api:
+    build: 
+      context: .
+      dockerfile: ./api/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - trendsdata:/usr/src/app
+
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -15,9 +26,15 @@ services:
       MONDODB_LOG_DIR: /dev/null
     volumes:
       - mongodbdata:/data/db
+    ports:
+      - "27016:27017"
+    logging:
+      driver: none
 
 volumes:
   mongodbdata:
     driver: local
-  appdata:
+  twitterdata:
+    driver: local
+  trendsdata:
     driver: local
