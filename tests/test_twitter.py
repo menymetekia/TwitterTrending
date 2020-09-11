@@ -14,5 +14,3 @@ def test_last_x_hours():
     assert ingestion.check_date(datetime.utcnow() - timedelta(hours=72,minutes=1),last_x_hours) == False
     #Exactly 72 hours
     assert ingestion.check_date(datetime.utcnow() - timedelta(hours=72), last_x_hours) == False
-
-def test_trends():

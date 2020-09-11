@@ -3,6 +3,7 @@ import yaml
 from datetime import datetime, timedelta
 
 def initialize_db():
+    """Initializes the DB using the information within the config file."""
     config = yaml.safe_load(open("./config.yaml"))
     myclient = pymongo.MongoClient(config["mongo_client_location"])
     mydb = myclient[config["mongo_db"]]
