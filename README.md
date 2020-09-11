@@ -27,7 +27,7 @@ Trends api:
 <br>
 After the component starts running it is possible to send a GET request to:
 <br>
-http://127.0.0.1:5000/trends/<last-x-hours>
+http://127.0.0.1:5000/trends/(last-x-hours)
 <br>
 <br>
 Example:
