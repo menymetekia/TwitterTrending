@@ -2,8 +2,9 @@
 
 This project consists of two seperate components:
 
-Ingestion component: Ingests twitter tweets and stores them in a MongoDB database.
-Trends API component: REST API used after ingestion to provide the twitter trends within a certain time range.
+**Ingestion component**: Ingests twitter tweets and stores them in a MongoDB database.
+<br>
+**Trends API component**: REST API used after ingestion to provide the twitter trends within a certain time range.
 
 ## Running using Docker:
 
